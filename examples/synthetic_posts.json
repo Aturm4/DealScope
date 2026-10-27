@@ -1,0 +1,46 @@
+[
+  {
+    "message_id": 101,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD NVMe диски\n🟠 Kingfast 128GB 15$❌\n🟠 Biostar 128GB 15$❌\n🟠 Axle 128GB 15$❌\n🟠 Western Digital 512GB 50$\n🟠 Hikvision 512GB 50$\nЕсть гарантия",
+    "published_at": "2026-10-01T10:00:00+05:00",
+    "has_media": true
+  },
+  {
+    "message_id": 102,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD Samsung 980 PRO 1ТБ NVMe, новый. Цена: 49 USD",
+    "published_at": "2026-10-01T10:01:00+05:00"
+  },
+  {
+    "message_id": 103,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD Kingston 512ГБ M.2 — 35$",
+    "published_at": "2026-10-01T10:02:00+05:00"
+  },
+  {
+    "message_id": 104,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nССД NVMe 1 TB, цена от 40 долларов",
+    "published_at": "2026-10-01T10:03:00+05:00"
+  },
+  {
+    "message_id": 105,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD NVMe\nSamsung 512GB\nCrucial 1TB\nЦена 45$",
+    "published_at": "2026-10-01T10:04:00+05:00"
+  },
+  {
+    "message_id": 106,
+    "text": "",
+    "published_at": "2026-10-01T10:05:00+05:00",
+    "has_media": true
+  },
+  {
+    "message_id": 107,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD NVMe 512GB 25$\nПРОДАНО❌ | SOTILDI❌",
+    "published_at": "2026-10-01T10:06:00+05:00"
+  },
+  {
+    "message_id": 101,
+    "text": "СИНТЕТИЧЕСКИЙ ПРИМЕР\nSSD NVMe диски\n🟠 Kingfast 128GB 15$❌\n🟠 Biostar 128GB 15$❌\n🟠 Axle 128GB 15$❌\n🟠 Western Digital 512GB 50$❌\n🟠 Hikvision 512GB 50$\nЕсть гарантия",
+    "published_at": "2026-10-01T10:00:00+05:00",
+    "edited_at": "2026-10-01T11:00:00+05:00",
+    "has_media": true
+  }
+]

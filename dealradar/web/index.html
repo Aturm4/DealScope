@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>DealScope</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">К содержимому</a>
+  <header class="app-header">
+    <span class="brand">DealScope</span>
+    <div class="header-actions">
+      <span id="demo-banner" class="demo-label" hidden>Синтетические данные</span>
+      <button id="refresh" class="text-button">Обновить</button>
+      <details id="app-menu" class="app-menu">
+        <summary aria-label="Меню приложения">Ещё <span aria-hidden="true">⌄</span></summary>
+        <div class="menu-content">
+          <span id="database-name">Локальная база</span>
+          <span id="sync-state">Загрузка…</span>
+          <p>Мониторинг запускается отдельно в PowerShell.</p>
+          <button id="clear-history" class="text-button">Очистить историю</button>
+          <button id="stop-ui" class="text-button">Остановить интерфейс</button>
+        </div>
+      </details>
+    </div>
+  </header>
+  <nav class="top-nav" aria-label="Разделы DealScope">
+    <button class="nav-item active" data-view="feed" type="button" aria-current="page">Предложения</button>
+    <button class="nav-item" data-view="sources" type="button">Источники</button>
+    <button class="nav-item" data-view="notifications" type="button">Уведомления</button>
+  </nav>
+  <div class="app-shell">
+    <main id="content" tabindex="-1">
+      <div id="global-error" class="notice error" role="alert" hidden></div>
+      <div id="shutdown-notice" class="notice" role="status" hidden>Интерфейс остановлен. Мониторинг в отдельном PowerShell этим не останавливается. Повтори команду ui, чтобы открыть интерфейс снова.</div>
+      <section id="view-feed" class="view" aria-label="Лента предложений">
+        <div class="section-header"><h1>Поиск комплектующих</h1><button id="new-preset" class="button secondary" type="button">+ Новый поиск</button></div>
+        <div class="workbench">
+        <aside class="search-panel" aria-label="Настройки поиска">
+        <div id="preset-items" class="preset-picker"><label for="preset-select">Сохранённый поиск</label><select id="preset-select"><option value="">Все предложения</option></select></div>
+        <form id="search-form" novalidate>
+          <div class="search-title-row">
+            <h2 id="search-settings-title">Условия поиска</h2><h2 id="all-title" hidden>Все предложения</h2>
+          </div>
+          <div id="preset-error" class="notice error" role="alert" hidden></div>
+          <div class="search-fields">
+            <label class="search-field editable-field"><span>Товар</span><select name="drive_type" aria-label="Товар"><option value="ssd">SSD</option><option value="hdd">HDD</option><option value="">Любой накопитель</option></select></label>
+            <label class="search-field editable-field"><span>Интерфейс</span><select name="interface"><option value="nvme">NVMe</option><option value="sata">SATA</option><option value="">Любой</option></select></label>
+            <label class="search-field full-field editable-field"><span>Максимальная цена</span><span class="money-input"><input name="max_price" aria-label="Максимальная цена" maxlength="32" inputmode="decimal" placeholder="Сумма" autocomplete="off"><select name="currency" aria-label="Валюта"><option value="USD">USD</option><option value="UZS">сум</option></select></span></label>
+            <label class="search-field full-field editable-field"><span>Состояние</span><select name="condition"><option value="any">Любое</option><option value="new">Только новые</option><option value="used">Только б/у</option><option value="known">Указанное явно</option></select></label>
+            <section id="search-specs" class="search-specs editable-field" aria-label="Объём накопителя">
+              <div class="spec-content">
+                <fieldset class="capacities"><legend>Объём</legend><div class="capacity-options">
+                  <label class="capacity-chip"><input type="checkbox" name="cap256"><span>256 ГБ</span></label>
+                  <label class="capacity-chip"><input type="checkbox" name="cap512" checked><span>512 ГБ</span></label>
+                  <label class="capacity-chip"><input type="checkbox" name="cap1000" checked><span>1 ТБ</span></label>
+                  <label class="capacity-chip"><input type="checkbox" name="cap2000"><span>2 ТБ</span></label>
+                </div></fieldset>
+              </div>
+            </section>
+            <label class="search-field full-field"><span>Источник ленты</span><select id="feed-source" aria-label="Источник ленты"><option value="">Все источники</option></select></label>
+                <details class="extra-fields full-field editable-field">
+                  <summary>Ещё параметры</summary>
+                  <div class="extra-content">
+                    <label id="search-name-wrap" class="search-name-wrap">Название поиска<input name="name" id="search-name" aria-label="Название поиска" maxlength="100" placeholder="Новый поиск" autocomplete="off"></label>
+                    <label>Бренды<textarea name="brands" rows="2" maxlength="3200" placeholder="Каждый с новой строки"></textarea></label>
+                    <label>Модели<textarea name="models" rows="2" maxlength="3200" placeholder="Каждая с новой строки"></textarea></label>
+                    <label>Ключевые слова<textarea name="keywords" rows="2" maxlength="3200" placeholder="Каждое с новой строки"></textarea></label>
+                    <label>Исключения<textarea name="exclusions" rows="2" maxlength="3200" placeholder="Каждое с новой строки"></textarea></label>
+                    <label>Совпадение слов<select name="keyword_mode"><option value="any">Хотя бы одно</option><option value="all">Все слова</option></select></label>
+                    <label>Другие объёмы, ГБ<input name="other_capacities" maxlength="200" placeholder="Через запятую" inputmode="numeric" autocomplete="off"></label>
+                  </div>
+                </details>
+                <label class="checkbox full-field editable-field"><input type="checkbox" name="enabled" checked>Получать уведомления по поиску</label>
+          </div>
+          <p id="draft-notice" class="draft-notice" role="status" hidden>Есть изменения. Лента пока использует сохранённые условия.</p>
+          <button id="save-preset" class="button primary" type="submit">Сохранить поиск</button>
+        </form>
+        </aside>
+        <div class="feed-column">
+        <div class="feed-heading"><h2 id="feed-title">Предложения</h2><span id="spec-summary" class="muted"></span></div>
+        <div class="feed-toolbar">
+          <div class="decision-tabs" aria-label="Результат проверки"><button type="button" data-decision="matched" aria-pressed="true">Подходящие</button><button type="button" data-decision="needs_review" aria-pressed="false">Проверить</button><button type="button" data-decision="rejected" aria-pressed="false">Исключённые</button><label class="decision-picker"><span class="sr-only">Другие категории</span><select id="feed-decision"><option value="" disabled selected>Ещё</option><option value="all">Все объявления</option><option value="unassessed">Не пересчитанные</option></select></label></div>
+        </div>
+        <div class="feed-selection"><span id="feed-count" aria-live="polite">Загрузка…</span>
+          <button id="recheck" class="text-button" type="button">Применить к истории</button>
+        </div>
+        <span id="recheck-result" class="muted" role="status" hidden></span>
+        <div id="feed-items" class="offer-list" aria-live="polite"></div>
+        <button id="feed-more" class="button secondary load-more" type="button" hidden>Показать ещё</button>
+        </div>
+        </div>
+      </section>
+      <section id="view-sources" class="view" aria-label="Состояние источников" hidden>
+        <div class="section-header"><h1>Источники</h1></div>
+        <form id="source-form" class="source-form">
+          <label class="source-address" for="source-address">Telegram-канал<input id="source-address" name="address" type="text" placeholder="https://t.me/username" required maxlength="100" autocomplete="off" spellcheck="false"></label>
+          <button id="source-add" class="button primary" type="submit">Добавить источник</button>
+          <label class="checkbox source-consent"><input id="source-joined" type="checkbox" required>Я уже подписан на этот канал</label>
+          <p class="muted">До 5 каналов. Начало — с первого подключения, без старой истории.</p>
+          <p id="source-error" class="error-detail" role="alert" hidden></p>
+        </form>
+        <div id="source-items" class="stack"></div>
+        <details class="help-details"><summary>Подключение и работа</summary><p>Добавляй публичные каналы, на которые уже подписан твой аккаунт. Приглашения, группы и личные страницы не поддерживаются. Добавление сохраняет разрешение; доступ проверяется при ручном запуске мониторинга с --all-sources. Он замечает добавленные каналы при следующем цикле. Программа не вступает в каналы.</p><p>testirovk4 остаётся в отдельной учебной базе. Приостановка отменяет ожидающие уведомления. Включение источника само по себе не запускает мониторинг. После трёх временных ошибок или ошибки доступа источник останавливается до перезапуска; остальные продолжают работать. Ограничение Telegram приостанавливает всю пользовательскую сессию.</p><p>Во время сна и выключения компьютера сбор не работает. После запуска догружаются доступные публикации после сохранённой границы.</p></details>
+      </section>
+      <section id="view-notifications" class="view" aria-label="История уведомлений" hidden>
+        <div class="section-header"><h1>Уведомления</h1><label class="status-filter"><span class="sr-only">Статус уведомления</span><select id="notification-status"><option value="all">Все статусы</option><option value="sent">Доставлены</option><option value="pending">Ожидают</option><option value="unknown">Результат неизвестен</option><option value="failed">Ошибка отправки</option><option value="cancelled">Отменены</option><option value="held">Предпросмотр</option></select></label></div>
+        <div id="notifier-summary" class="notifier-summary"></div>
+        <div id="notification-items" class="stack"></div>
+        <button id="notifications-more" class="button secondary load-more" type="button" hidden>Показать ещё</button>
+      </section>
+    </main>
+  </div>
+  <dialog id="post-dialog" class="wide-dialog" aria-labelledby="post-title"><div class="dialog-header"><h2 id="post-title">Публикация</h2><button type="button" class="icon-button" data-close="post-dialog" aria-label="Закрыть публикацию">×</button></div><div id="post-content"></div></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><h2 id="confirm-title">Подтверди действие</h2><p id="confirm-text"></p><label id="confirm-word-label" class="field" hidden>Введите слово <strong id="confirm-word-name"></strong><input id="confirm-word" type="text" autocomplete="off" spellcheck="false" maxlength="16"></label><div class="dialog-actions"><button id="confirm-cancel" class="button secondary" type="button">Отмена</button><button id="confirm-ok" class="button primary" type="button">Подтвердить</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>DealScope — подключение ПК</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/connect.js" defer></script>
+</head>
+<body>
+  <header class="app-header"><span class="brand">DealScope</span></header>
+  <main class="connect-page">
+    <h1>Подключи этот ПК</h1>
+    <p>Временный код разрешает сайту читать ленту и менять настройки DealScope на этом ПК. Он действует до закрытия программы.</p>
+    <button id="copy-link-code" class="button primary" type="button" disabled>Скопировать код подключения</button>
+    <p id="connect-message" role="status">Загрузка…</p>
+    <a id="open-radar-site" class="button secondary" target="_blank" rel="noopener noreferrer" hidden>Открыть мой сайт</a>
+    <details><summary>Если копирование недоступно</summary><label>Код подключения<input id="link-code" type="password" readonly autocomplete="off" spellcheck="false" aria-label="Временный код подключения"></label><button id="select-link-code" class="text-button" type="button">Выделить код</button></details>
+    <p class="muted">Реквизиты Telegram вводи только в окне запуска. Код подключения никому не отправляй. База и Telegram-сессия остаются на этом ПК.</p>
+  </main>
+</body>
+</html>

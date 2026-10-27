@@ -1,0 +1,9 @@
+[project]
+name = "local-deal-radar"
+version = "0.1.0"
+description = "Offline, rule-based foundation for a personal hardware deal radar"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.ruff]
+line-length = 100

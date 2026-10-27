@@ -1,0 +1,6 @@
+{
+  "project_id": "<YOUR_SITES_PROJECT_ID>",
+  "static": {
+    "directory": "dist"
+  }
+}

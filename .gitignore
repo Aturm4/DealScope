@@ -1,0 +1,34 @@
+# Runtime data, private history, backups and credentials
+/data/
+/local/
+/backups/
+/exports/
+/secrets/
+/site/site.json
+/site/.openai/hosting.json
+*.lnk
+.env
+.env.*
+!.env.example
+*.session*
+*.SESSION*
+*.sqlite*
+*.db
+*.db-*
+*.log
+*.pem
+*.key
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+.idea/
+.vscode/

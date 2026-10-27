@@ -1,0 +1,11 @@
+{
+  "key": "synthetic-usd",
+  "name": "СИНТЕТИЧЕСКОЕ правило: учебный потолок, не пользовательская настройка",
+  "currency": "USD",
+  "max_price": "50",
+  "capacities_gb": [512, 1000],
+  "drive_type": "ssd",
+  "interface": "nvme",
+  "exclusions": ["переходник", "адаптер", "куплю"],
+  "enabled": true
+}
